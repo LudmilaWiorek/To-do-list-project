@@ -33,7 +33,9 @@ void MainMenu()
             PrintSelectedOption("Exit");
             break;
         default:
+
             Console.WriteLine("Invalid choice. Please input s, a, r or e");
+            MainMenu();
             break;
     }
 }
@@ -60,22 +62,26 @@ void PrintAllToDo()
 }
 void AddToDo()
 {
-    Console.WriteLine("Enter the TODO description:");
-    string enteredDescription = Console.ReadLine();
-    if (enteredDescription != "" && !mainList.Contains(enteredDescription))
+    bool isValidDescription = false;
+    while (!isValidDescription)
     {
-        mainList.Add(enteredDescription);
-        Console.WriteLine("TODO successfully added: " + enteredDescription);
-    }
-    else if (enteredDescription == "")
-    {
-        Console.WriteLine("The description cannot be empty.");
-        AddToDo();
-    }
-    else if (mainList.Contains(enteredDescription))
-    {
-        Console.WriteLine("The description must be unique.");
-        AddToDo();
+        Console.WriteLine("Enter the TODO description:");
+        string enteredDescription = Console.ReadLine();
+
+        if (enteredDescription == "")
+        {
+            Console.WriteLine("The description cannot be empty.");
+        }
+        else if (mainList.Contains(enteredDescription))
+        {
+            Console.WriteLine("The description must be unique.");
+        }
+        else
+        {
+            isValidDescription = true;
+            mainList.Add(enteredDescription);
+            Console.WriteLine("TODO successfully added: " + enteredDescription);
+        }
     }
 }
 void RemoveToDo()
@@ -92,7 +98,7 @@ void RemoveToDo()
     int index;
     if (int.TryParse(enteredIndex, out index))
     {
-        if (index > mainList.Count)
+        if (index > mainList.Count || index <= 0)
         {
             Console.WriteLine("The given index is not valid.");
             RemoveToDo();
