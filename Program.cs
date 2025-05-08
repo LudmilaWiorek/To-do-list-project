@@ -47,17 +47,17 @@ void PrintSelectedOption(string selectedOption)
 }
 void PrintAllToDo()
 {
-    if (mainList.Count > 0)
+    if (mainList.Count == 0)
+    {
+        Console.WriteLine("No TODOs have been added yet.");
+    }
+    else
     {
         Console.WriteLine("Here is what you have on your main List: ");
         for (var i = 0; i < mainList.Count; i++)
         {
             Console.WriteLine((i + 1) + ". " + mainList[i]);
         }
-    }
-    else if (mainList.Count == 0)
-    {
-        Console.WriteLine("No TODOs have been added yet.");
     }
 }
 void AddToDo()
@@ -68,7 +68,7 @@ void AddToDo()
         Console.WriteLine("Enter the TODO description:");
         string enteredDescription = Console.ReadLine();
 
-        if (enteredDescription == "")
+        if (enteredDescription == "") // first let's check program for exceptions (and throw that exception)
         {
             Console.WriteLine("The description cannot be empty.");
         }
@@ -94,7 +94,7 @@ void RemoveToDo()
     Console.WriteLine("Select the index of the TODO you want to remove:");
     string enteredIndex = Console.ReadLine();
 
-    // musimy sprawdzić czy user wprowdzil liczbe w inpucie
+    // check if user provided number in input
     int index;
     if (int.TryParse(enteredIndex, out index))
     {
